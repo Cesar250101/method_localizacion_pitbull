@@ -11,8 +11,8 @@ class NotasVenta(models.Model):
     
     @api.multi
     def action_confirm(self):
+        super(NotasVenta, self).action_confirm()
         if self.notas_guia:
-            super(NotasVenta, self).action_confirm()
             guia=self.env['stock.picking'].search([('sale_id','=',self.id)],limit=1)
             guia.note=self.notas_guia
         
