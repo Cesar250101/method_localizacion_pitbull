@@ -13,6 +13,20 @@
       </field>
     </record>
 
+    <!-- model.name inherit tree view -->
+    <record id="method_localizacion_pitbull.view_quotation_tree" model="ir.ui.view">
+      <field name="name">method.localizacion.pitbull.view.quotation.tree</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_quotation_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='invoice_status']" position="after">
+          <field name="crm_producto" />
+          <field name="crm_medio" />
+        </xpath>
+
+      </field>
+    </record>
+
     <!-- model.name inherit form view -->
     <record id="method_localizacion_pitbull.view_order_form" model="ir.ui.view">
       <field name="name">method.localizacion.pitbull.view.order.form</field>
@@ -27,6 +41,13 @@
                 </group>
               </group>
           </page>
+          <page name="crm" string="Crm">
+              <group>
+                  <field  name="crm_producto"/>
+                  <field name="crm_medio"/>
+              </group>
+          </page>
+
         </xpath>
         
       </field>
