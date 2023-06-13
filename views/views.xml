@@ -24,7 +24,7 @@
           <field name="crm_medio" />
         </xpath>
 
-      </field>
+      </field> 
     </record>
 
     <!-- model.name inherit form view -->
