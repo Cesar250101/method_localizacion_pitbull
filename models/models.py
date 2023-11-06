@@ -26,28 +26,28 @@ class Partner(models.Model):
         mensaje['From'] = 'Method ERP'
         mensaje['To'] = 'nicolas@pitbull.cl,cesar@method.cl'
         mensaje['Subject'] = 'Cambio de vendedor'
+        if self.user_id:
+            # Cuerpo del mensaje
+            cuerpo_mensaje = """
+                Estimado/a Pitbull Sociedad Anonima
 
-        # Cuerpo del mensaje
-        cuerpo_mensaje = """
-            Estimado/a Pitbull Sociedad Anonima
+                Se ha cambiado el vendedor al contacto """ +  self.name+""" , el nuevo vendedor es """ + self.user_id.name +""".
 
-            Se ha cambiado el vendedor al contacto """ +  self.name+""" , el nuevo vendedor es """ + self.user_id.name +""".
+                Saludos.
+            """
+            mensaje.attach(MIMEText(cuerpo_mensaje, 'plain'))
 
-            Saludos.
-        """
-        mensaje.attach(MIMEText(cuerpo_mensaje, 'plain'))
+            # Establecer conexión segura con el servidor SMTP utilizando SSL/TLS
+            smtp = smtplib.SMTP_SSL(smtp_host, smtp_port)
 
-        # Establecer conexión segura con el servidor SMTP utilizando SSL/TLS
-        smtp = smtplib.SMTP_SSL(smtp_host, smtp_port)
+            # Iniciar sesión en el servidor SMTP
+            smtp.login(smtp_username, smtp_password)
 
-        # Iniciar sesión en el servidor SMTP
-        smtp.login(smtp_username, smtp_password)
+            # Enviar correo electrónico
+            smtp.send_message(mensaje)
 
-        # Enviar correo electrónico
-        smtp.send_message(mensaje)
-
-        # Cerrar conexión con el servidor SMTP
-        smtp.quit()
+            # Cerrar conexión con el servidor SMTP
+            smtp.quit()
 
 class NotasVenta(models.Model):
     _inherit = 'sale.order'
